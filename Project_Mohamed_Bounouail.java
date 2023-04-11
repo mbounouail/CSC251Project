@@ -109,17 +109,17 @@ public class Policy {
         double baseFee = 600.0;
         double additionalFee = 0.0;
 
-        // Check for additional fees based on age, smoking status, and BMI
-        if (policyholderAge > 50) {
+    // Check for additional fees based on age, smoking status, and BMI
+    if (policyholderAge > 50) {
             additionalFee += 75.0;
-        }
-        if (policyholderSmokingStatus.equals("smoker")) {
+    }
+    if (policyholderSmokingStatus.equals("smoker")) {
             additionalFee += 100.0;
-        }
-        double bmi = calculateBMI();
-        if (bmi > 35.0) {
-            additionalFee += (bmi - 35.0) * 20.0;
-        }
-        return baseFee + additionalFee;
+    }
+    double bmi = calculateBMI();
+    if (bmi > 35.0) {
+        additionalFee += (bmi - 35.0) * 20.0;
+    }
+    return baseFee + additionalFee;
     }
 }

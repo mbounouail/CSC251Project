@@ -1,52 +1,48 @@
-import java.util.Scanner;
-
 public class Policy {
+    private String policyNumber;
+    private String providerName;
+    private String policyholderFirstName;
+    private String policyholderLastName;
+    private int policyholderAge;
+    private String policyholderSmokingStatus;
+    private int policyholderHeightInches;
+    private int policyholderWeightPounds;
 
-    // Declare instance variables to store policy information
-    private int policyNumber; // policy number
-    private String providerName; // name of insurance provider
-    private String policyholderFirstName; // first name of policyholder
-    private String policyholderLastName; // last name of policyholder
-    private int policyholderAge; // age of policyholder
-    private String policyholderSmokingStatus; // smoking status of policyholder
-    private double policyholderHeight; // height of policyholder in inches
-    private double policyholderWeight; // weight of policyholder in pounds
-
-    // No-arg constructor that sets default values for all fields
+    // Default constructor
     public Policy() {
-        this.policyNumber = 0;
-        this.providerName = "Unknown";
-        this.policyholderFirstName = "Unknown";
-        this.policyholderLastName = "Unknown";
-        this.policyholderAge = 0;
-        this.policyholderSmokingStatus = "Unknown";
-        this.policyholderHeight = 0;
-        this.policyholderWeight = 0;
+        policyNumber = "";
+        providerName = "";
+        policyholderFirstName = "";
+        policyholderLastName = "";
+        policyholderAge = 0;
+        policyholderSmokingStatus = "";
+        policyholderHeightInches = 0;
+        policyholderWeightPounds = 0;
     }
 
-    // Constructor that accepts arguments to fully initialize the Policy object
-    public Policy(int policyNumber, String providerName, String policyholderFirstName, String policyholderLastName, int policyholderAge, String policyholderSmokingStatus, double policyholderHeight, double policyholderWeight) {
+    // Constructor with arguments
+    public Policy(String policyNumber, String providerName, String policyholderFirstName, String policyholderLastName, int policyholderAge, String policyholderSmokingStatus, int policyholderHeightInches, int policyholderWeightPounds) {
         this.policyNumber = policyNumber;
         this.providerName = providerName;
         this.policyholderFirstName = policyholderFirstName;
         this.policyholderLastName = policyholderLastName;
         this.policyholderAge = policyholderAge;
         this.policyholderSmokingStatus = policyholderSmokingStatus;
-        this.policyholderHeight = policyholderHeight;
-        this.policyholderWeight = policyholderWeight;
+        this.policyholderHeightInches = policyholderHeightInches;
+        this.policyholderWeightPounds = policyholderWeightPounds;
     }
 
-    // Getter and setter methods for each instance variable
-    public int getPolicyNumber() {
-        return this.policyNumber;
+    // Getters and setters
+    public String getPolicyNumber() {
+        return policyNumber;
     }
 
-    public void setPolicyNumber(int policyNumber) {
+    public void setPolicyNumber(String policyNumber) {
         this.policyNumber = policyNumber;
     }
 
     public String getProviderName() {
-        return this.providerName;
+        return providerName;
     }
 
     public void setProviderName(String providerName) {
@@ -54,7 +50,7 @@ public class Policy {
     }
 
     public String getPolicyholderFirstName() {
-        return this.policyholderFirstName;
+        return policyholderFirstName;
     }
 
     public void setPolicyholderFirstName(String policyholderFirstName) {
@@ -62,7 +58,7 @@ public class Policy {
     }
 
     public String getPolicyholderLastName() {
-        return this.policyholderLastName;
+        return policyholderLastName;
     }
 
     public void setPolicyholderLastName(String policyholderLastName) {
@@ -70,7 +66,7 @@ public class Policy {
     }
 
     public int getPolicyholderAge() {
-        return this.policyholderAge;
+        return policyholderAge;
     }
 
     public void setPolicyholderAge(int policyholderAge) {
@@ -78,29 +74,52 @@ public class Policy {
     }
 
     public String getPolicyholderSmokingStatus() {
-        return this.policyholderSmokingStatus;
+        return policyholderSmokingStatus;
     }
 
     public void setPolicyholderSmokingStatus(String policyholderSmokingStatus) {
         this.policyholderSmokingStatus = policyholderSmokingStatus;
     }
 
-    public double getPolicyholderHeight() {
-        return this.policyholderHeight;
+    public int getPolicyholderHeightInches() {
+        return policyholderHeightInches;
     }
 
-    public void setPolicyholderHeight(double policyholderHeight) {
-        this.policyholderHeight = policyholderHeight;
+    public void setPolicyholderHeightInches(int policyholderHeightInches) {
+        this.policyholderHeightInches = policyholderHeightInches;
     }
 
-    public double getPolicyholderWeight() {
-        return this.policyholderWeight;
+    public int getPolicyholderWeightPounds() {
+        return policyholderWeightPounds;
     }
 
-    public void setPolicyholderWeight(double policyholderWeight) {
-        this.policyholderWeight = policyholderWeight;
+    public void setPolicyholderWeightPounds(int policyholderWeightPounds) {
+        this.policyholderWeightPounds = policyholderWeightPounds;
     }
 
-    // Method to calculate the BMI of the policyholder
+    // Method to calculate BMI
     public double calculateBMI() {
-        double bmi = (this.policyholderWeight * 703) / (this.policyholderHeight *
+        double heightInMeters = policyholderHeightInches / 39.37;
+        double weightInKilos = policyholderWeightPounds / 2.205;
+        return weightInKilos / (heightInMeters * heightInMeters);
+    }
+
+    // Method to calculate insurance policy price
+    public double calculatePrice() {
+        double baseFee = 600.0;
+        double additionalFee = 0.0;
+
+        // Check for additional fees based on age, smoking status, and BMI
+        if (policyholderAge > 50) {
+            additionalFee += 75.0;
+        }
+        if (policyholderSmokingStatus.equals("smoker")) {
+            additionalFee += 100.0;
+        }
+        double bmi = calculateBMI();
+        if (bmi > 35.0) {
+            additionalFee += (bmi - 35.0) * 20.0;
+        }
+        return baseFee + additionalFee;
+    }
+}
